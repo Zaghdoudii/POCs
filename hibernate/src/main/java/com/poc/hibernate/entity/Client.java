@@ -1,6 +1,9 @@
 package com.poc.hibernate.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,6 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "client")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Client {
 
     @Id

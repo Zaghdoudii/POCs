@@ -1,12 +1,17 @@
 package com.poc.hibernate.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "carte_bancaire")
+@Getter
+@Setter
+@NoArgsConstructor
 public class CarteBancaire {
 
     @Id

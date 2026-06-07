@@ -162,8 +162,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("""
             SELECT DISTINCT c
             FROM Client c
-            JOIN c.comptes cp
-            JOIN cp.agence a
+            LEFT JOIN c.comptes cp
+            LEFT JOIN cp.agence a
             WHERE
                 (:nom IS NULL OR LOWER(c.nom) LIKE LOWER(CONCAT('%', :nom, '%')))
             AND (:prenom IS NULL OR LOWER(c.prenom) LIKE LOWER(CONCAT('%', :prenom, '%')))
