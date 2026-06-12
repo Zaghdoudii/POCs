@@ -1,0 +1,63 @@
+{
+  "realm": "ticket-realm",
+  "displayName": "Ticket Realm",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "bruteForceProtected": true,
+
+  "roles": {
+    "realm": [
+      { "name": "CLIENT", "description": "Lecture seule des tickets" },
+      { "name": "AGENT",  "description": "Création et modification des tickets" },
+      { "name": "ADMIN",  "description": "Accès complet (CRUD) aux tickets" }
+    ]
+  },
+
+  "clients": [
+    {
+      "clientId": "ticket-app",
+      "name": "Ticket Application",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "redirectUris": ["http://localhost:8080/*"],
+      "webOrigins": ["+"]
+    }
+  ],
+
+  "users": [
+    {
+      "username": "client-user",
+      "email": "client@example.com",
+      "firstName": "Client",
+      "lastName": "User",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "password", "temporary": false }],
+      "realmRoles": ["CLIENT"]
+    },
+    {
+      "username": "agent-user",
+      "email": "agent@example.com",
+      "firstName": "Agent",
+      "lastName": "User",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "password", "temporary": false }],
+      "realmRoles": ["AGENT"]
+    },
+    {
+      "username": "admin-user",
+      "email": "admin@example.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "password", "temporary": false }],
+      "realmRoles": ["ADMIN"]
+    }
+  ]
+}
