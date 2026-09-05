@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/orders_db
+    username: camel
+    password: camel
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      # update = pratique pour apprendre (Hibernate cree la table "orders" au demarrage).
+      # A eviter en production (préférer des migrations Flyway/Liquibase).
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+camel:
+  springboot:
+    main-run-controller: true
+  # Petit delai de redemarrage si Kafka/Postgres ne sont pas encore prets au tout premier lancement
+  main:
+    duration-max-idle-seconds: 0
+
+logging:
+  level:
+    com.example.orderservice: INFO
+    org.apache.camel: INFO
+
+# Proprietes applicatives, injectees dans les routes Camel via {{app.kafka.xxx}}
+app:
+  kafka:
+    brokers: localhost:9092
+    topic: order-events

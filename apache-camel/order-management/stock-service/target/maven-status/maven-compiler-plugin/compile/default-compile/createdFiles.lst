@@ -1,0 +1,4 @@
+com\example\stockservice\service\StockService.class
+com\example\stockservice\controller\StockController.class
+com\example\stockservice\routes\StockConsumerRoute.class
+com\example\stockservice\StockApplication.class

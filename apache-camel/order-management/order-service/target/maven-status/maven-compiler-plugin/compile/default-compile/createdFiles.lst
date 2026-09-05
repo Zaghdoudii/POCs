@@ -1,0 +1,9 @@
+com\example\orderservice\config\CamelJacksonConfig.class
+com\example\orderservice\dto\OrderRequest.class
+com\example\orderservice\OrderApplication.class
+com\example\orderservice\routes\OrderRoutes.class
+com\example\orderservice\dto\OrderResponse.class
+com\example\orderservice\repository\OrderRepository.class
+com\example\orderservice\controller\OrderController.class
+com\example\orderservice\entity\OrderStatus.class
+com\example\orderservice\entity\Order.class

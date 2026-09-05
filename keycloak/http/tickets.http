@@ -1,0 +1,83 @@
+### ============================================================
+### 1. Obtenir un token Keycloak (Resource Owner Password Grant)
+###    Compatible VS Code REST Client / IntelliJ HTTP Client
+### ============================================================
+
+### Token pour client-user (rôle CLIENT — lecture seule)
+# @name loginClient
+POST http://localhost:8081/realms/ticket-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ticket-app&username=client-user&password=password
+
+###
+
+### Token pour agent-user (rôle AGENT — lecture + création/modification)
+# @name loginAgent
+POST http://localhost:8081/realms/ticket-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ticket-app&username=agent-user&password=password
+
+###
+
+### Token pour admin-user (rôle ADMIN — accès complet)
+# @name loginAdmin
+POST http://localhost:8081/realms/ticket-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ticket-app&username=admin-user&password=password
+
+###
+
+
+### ============================================================
+### 2. Utiliser les tokens (copier access_token de la réponse)
+### ============================================================
+
+@token = <coller_le_access_token_ici>
+
+### GET tous les tickets — CLIENT, AGENT, ADMIN autorisés → 200
+GET http://localhost:8080/api/tickets
+Authorization: Bearer {{token}}
+
+###
+
+### GET ticket par ID — CLIENT, AGENT, ADMIN → 200 | introuvable → 404
+GET http://localhost:8080/api/tickets/1
+Authorization: Bearer {{token}}
+
+###
+
+### POST créer un ticket — AGENT, ADMIN → 201 | CLIENT → 403
+POST http://localhost:8080/api/tickets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Problème de connexion",
+  "description": "L'utilisateur ne peut pas se connecter depuis ce matin."
+}
+
+###
+
+### PUT modifier un ticket — AGENT, ADMIN → 200 | CLIENT → 403
+PUT http://localhost:8080/api/tickets/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Problème de connexion (mise à jour)",
+  "description": "Résolu après réinitialisation du mot de passe."
+}
+
+###
+
+### DELETE supprimer — ADMIN uniquement → 204 | AGENT/CLIENT → 403
+DELETE http://localhost:8080/api/tickets/1
+Authorization: Bearer {{token}}
+
+###
+
+### Test sans token → 401 Unauthorized
+GET http://localhost:8080/api/tickets

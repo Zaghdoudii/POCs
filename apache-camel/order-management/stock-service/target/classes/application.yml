@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: stock-service
+
+camel:
+  springboot:
+    main-run-controller: true
+
+logging:
+  level:
+    com.example.stockservice: INFO
+    org.apache.camel: INFO
+
+app:
+  kafka:
+    brokers: localhost:9092
+    topic: order-events
+    group-id: stock-service-group
